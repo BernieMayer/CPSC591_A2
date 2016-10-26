@@ -133,6 +133,15 @@ static void key_callback( GLFWwindow* window, int key, int scancode, int action,
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
 
+
+	if (key == GLFW_KEY_K && action == GLFW_PRESS)
+	{
+		shader.updateR_Value(-0.5);
+	} else if (key == GLFW_KEY_L && action == GLFW_PRESS)
+	{
+		shader.updateR_Value(0.5);
+	}
+
 	keyboard(key, 0, 0);
 
 }

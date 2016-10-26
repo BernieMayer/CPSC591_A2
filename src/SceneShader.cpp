@@ -21,6 +21,7 @@ SceneShader::SceneShader(): Shader()
 	_aspectRatio = 1.0;
 	_xRot = 0.0;
 	_yRot = 0.0;
+	_r = 3.0;
 	lightPosition = glm::vec3(0.5, 0.5, 0.5);
 
 }
@@ -114,7 +115,7 @@ void SceneShader::createVertexBuffer()
 
 	calculateCylindricalUVCoordinates();
 
-	std::string imageFilename("textures/awesome.png");
+	std::string imageFilename("textures/fig-11d.png");
 	//loading image
 	unsigned int error = lodepng::decode( _image, _imageWidth, _imageHeight, imageFilename.c_str());
 
@@ -268,6 +269,7 @@ void SceneShader::renderMesh()
 	glUniformMatrix4fv(glGetUniformLocation(_programMesh, "projection"), 1, GL_FALSE, glm::value_ptr(_projection));
 
 	glUniform3fv(glGetUniformLocation(_programMesh, "lightPosition"), 1, glm::value_ptr(lightPosition) );
+  glUniform1f(glGetUniformLocation(_programMesh, "r"), _r);
 
 	glDrawElements( GL_TRIANGLES, _mesh->faces.size()*3, GL_UNSIGNED_INT, 0 );
 
@@ -357,6 +359,19 @@ void SceneShader::updateLightPositionZ(float z)
 {
 	lightPosition.z += z;
 }
+
+void SceneShader::updateR_Value(float delta_r)
+{
+	if ((_r + delta_r) > 0)
+	    _r += delta_r;
+	else
+	{
+		_r = 0.1;
+	}
+
+	std::cout << "r is " << _r << "\n";
+}
+
 
 SceneShader::~SceneShader()
 {

@@ -44,6 +44,8 @@ public:
 	void updateLightPositionY( float y );
 	void updateLightPositionZ( float z );
 
+	void updateR_Value(float delta_r);
+
 private:
 
 	/*methods*/
@@ -89,6 +91,7 @@ private:
 	float _xRot;
 	float _yRot;
 	float _aspectRatio;
+	float _r;
 
 
 	trimesh::TriMesh* _mesh;

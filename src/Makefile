@@ -50,7 +50,7 @@ OBJECTS_DIR   = ./
 
 SOURCES       = main.cpp \
 		SceneShader.cpp \
-		Shader.cpp 
+		Shader.cpp  
 OBJECTS       = main.o \
 		SceneShader.o \
 		Shader.o
