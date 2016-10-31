@@ -140,6 +140,10 @@ static void key_callback( GLFWwindow* window, int key, int scancode, int action,
 	} else if (key == GLFW_KEY_L && action == GLFW_PRESS)
 	{
 		shader.updateR_Value(0.5);
+	} else if (key == GLFW_KEY_T && action == GLFW_PRESS)
+	{
+		shader.changeModelTexture();
+		std::cout << "The T key was pressed \n";
 	}
 
 	keyboard(key, 0, 0);

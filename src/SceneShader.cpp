@@ -24,6 +24,11 @@ SceneShader::SceneShader(): Shader()
 	_r = 3.0;
 	lightPosition = glm::vec3(0.5, 0.5, 0.5);
 
+	textureFileNames.push_back("textures/fig-10d.png");
+	textureFileNames.push_back("textures/fig-10b.png");
+	textureFileNames.push_back("textures/fig-11b.png");
+	textureFileNames.push_back("textures/fig-11d.png");
+
 }
 
 
@@ -115,7 +120,10 @@ void SceneShader::createVertexBuffer()
 
 	calculateCylindricalUVCoordinates();
 
-	std::string imageFilename("textures/fig-11d.png");
+  for (int i = 0; i < textureFileNames.size(); i++)
+	{
+	std::string imageFilename(textureFileNames[i]);
+	_image.clear();
 	//loading image
 	unsigned int error = lodepng::decode( _image, _imageWidth, _imageHeight, imageFilename.c_str());
 
@@ -125,10 +133,13 @@ void SceneShader::createVertexBuffer()
 						<< std:: endl;
 	}
 
-	//creating 2D texture
-	_texture2Did = _texture.create2DTexture(_image, _imageWidth, _imageHeight);
+	//creating 2D textures
+	GLuint texture_Id = _texture.create2DTexture(_image, _imageWidth, _imageHeight);
+	textureIds.push_back(texture_Id);
+}
 
-
+  //creating 2D texture
+  _texture2Did = textureIds[0];
 
 
 
@@ -166,6 +177,25 @@ void SceneShader::createVertexBuffer()
 	glBindVertexArray(0);
 
 }
+
+
+void SceneShader::changeModelTexture()
+{
+	currentFilenameIndex++;
+
+	if (currentFilenameIndex >= textureFileNames.size())
+	{
+		currentFilenameIndex = 0;
+	}
+
+
+	_texture2Did = textureIds[currentFilenameIndex];
+
+
+
+
+}
+
 
 
 void SceneShader::startup()
@@ -368,8 +398,6 @@ void SceneShader::updateR_Value(float delta_r)
 	{
 		_r = 0.1;
 	}
-
-	std::cout << "r is " << _r << "\n";
 }
 
 

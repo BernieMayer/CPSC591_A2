@@ -26,7 +26,12 @@ void main(void)
     float kd = 0.3;
 
     float D =  pow( abs(dot(N,V)), r);
-    vec2 uv = vec2( dot(N, L), D);
+    float lambertian = dot(N,L);
+    if (lambertian < 0)
+    {
+       lambertian = 0.1;
+    }
+    vec2 uv = vec2( lambertian, D);
     vec4 colorFromImage = texture(image, uv);
     vec4 ambientPart = colorFromImage * 0.9;
     //vec4 diffusePart =  violet * diffuse;

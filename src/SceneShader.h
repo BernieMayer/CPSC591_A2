@@ -31,6 +31,9 @@ public:
 	void shutdown ();
 	void render();
 
+
+	void changeModelTexture();
+
 	void renderPlane();
 	void renderMesh();
 	void renderLight();
@@ -70,7 +73,7 @@ private:
 	GLuint _meshIndicesBuffer;
 	GLuint _meshTextureBuffer;
 
-        GLint _mvUniform, _projUniform;
+  GLint _mvUniform, _projUniform;
 
 	/* Matrices */
 	glm::mat4 _modelview;
@@ -80,6 +83,10 @@ private:
 	GLuint _textureID;
 	GLuint _texture2Did;
 	Texture _texture;
+
+	std::vector<std::string> textureFileNames;
+	std::vector<GLuint> textureIds;
+	int currentFilenameIndex = 0;
 
 	std::vector<glm::vec2> _uvs;
 
